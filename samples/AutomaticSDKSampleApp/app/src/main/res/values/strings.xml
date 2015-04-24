@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Automatic SDK Sample App</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_trips">Trips</string>
+    <string name="automatic_client_id">4f2f83cf7b9d438d6510</string>
+    <string name="title_activity_trip_viewer">TripViewerActivity</string>
+    <string name="title_activity_test">Test</string>
+</resources>

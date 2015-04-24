@@ -1,0 +1,49 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version '0.1'
+group 'com.automatic.android'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName version
+        testApplicationId "com.automatic.android.sdk.test"
+        testInstrumentationRunner "com.automatic.android.sdk.test.TestRunner"
+        testFunctionalTest true
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        //unitTests.returnDefaultValues = true
+    }
+
+    lintOptions {
+        warning 'InvalidPackage'
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.9.5"
+    // we must reference the jar here because of the way android library projects manage dependencies.
+    // the fundamental issue is that gradle won't compile the classes here, so they aren't available
+    // to projects that import the SDK .aar file.  This is unfortunate because it increases the size
+    // of the SDK distribution JAR by almost 750k, so until
+    compile files('../../commons/automatic-public-api-interface/build/libs/automatic-public-api-interface-all.jar')
+    // compile(project(':commons:automatic-public-api-interface'))
+}

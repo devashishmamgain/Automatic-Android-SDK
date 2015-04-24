@@ -1,0 +1,4 @@
+<resources>
+    <string name="button_text_login">Log in with Automatic</string>
+    <string name="button_text_connected">Connected</string>
+</resources>

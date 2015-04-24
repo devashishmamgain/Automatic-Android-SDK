@@ -1,0 +1,22 @@
+<resources>
+
+    <color name="button_background_color">#52b6ed</color>
+    <color name="button_background_color_pressed">#257fb9</color>
+    <color name="button_background_color_focused">#257fb9</color>
+    <color name="button_background_color_connected">#5dbc33</color>
+    <color name="button_text_color">#FFFFFF</color>
+    <dimen name="button_text_size">12sp</dimen>
+    <dimen name="button_min_width">200dp</dimen>
+    <dimen name="button_corner_radius">8dp</dimen>
+    <dimen name="button_logo_drawable_padding">12dp</dimen>
+    <dimen name="button_padding_left">12dp</dimen>
+    <dimen name="button_padding_right">16dp</dimen>
+    <dimen name="button_padding_top">12dp</dimen>
+    <dimen name="button_padding_bottom">12dp</dimen>
+
+    <declare-styleable name="login_button_view">
+        <attr name="login_text" format="string"/>
+        <attr name="logout_text" format="string"/>
+    </declare-styleable>
+
+</resources>
