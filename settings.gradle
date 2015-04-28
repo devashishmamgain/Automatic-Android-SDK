@@ -1,2 +1,2 @@
-include ':sdk'
-rootProject.name = 'sdk'
+include ':android-sdk'
+rootProject.name = 'android-sdk'
