@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
-        versionName "0.1-SNAPSHOT"
+        versionName project.VERSION
         testApplicationId "com.automatic.android.sdk.test"
         testInstrumentationRunner "com.automatic.android.sdk.test.TestRunner"
         testFunctionalTest true
