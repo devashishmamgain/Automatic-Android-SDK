@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+
 android {
     compileSdkVersion 22
     buildToolsVersion "21.1.2"
@@ -7,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
-        versionName version
+        versionName "0.1-SNAPSHOT"
         testApplicationId "com.automatic.android.sdk.test"
         testInstrumentationRunner "com.automatic.android.sdk.test.TestRunner"
         testFunctionalTest true
@@ -23,6 +24,9 @@ android {
         }
     }
 
+    // remove this to publish the release build
+    defaultPublishConfig "debug"
+
     testOptions {
         //unitTests.returnDefaultValues = true
     }
@@ -36,7 +40,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:1.9.5"
     // we must reference the jar here because of the way android library projects manage dependencies.
-    compile files('../../commons/automatic-public-api-interface/build/libs/automatic-public-api-interface-all.jar')
+    compile files('libs/automatic-public-api-interface-all.jar')
 }
 
 apply from: '../maven_push.gradle'
