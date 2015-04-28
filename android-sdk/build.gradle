@@ -7,7 +7,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 1
+        versionCode 2
         versionName project.VERSION
         testApplicationId "com.automatic.android.sdk.test"
         testInstrumentationRunner "com.automatic.android.sdk.test.TestRunner"
@@ -24,8 +24,7 @@ android {
         }
     }
 
-    // remove this to publish the release build
-    //defaultPublishConfig "debug"
+    defaultPublishConfig project.PUBLISH_CONFIG
 
     testOptions {
         //unitTests.returnDefaultValues = true
@@ -34,6 +33,13 @@ android {
     lintOptions {
         warning 'InvalidPackage'
     }
+}
+
+// task to copy AAR file to sample(s) dir once built
+task copyAAR(type: Copy) {
+    from('build/outputs/aar')
+    into('../samples/AutomaticSDKSampleApp/android-sdk/')
+    include(project.name + '-' + project.PUBLISH_CONFIG + '.aar')
 }
 
 dependencies {
