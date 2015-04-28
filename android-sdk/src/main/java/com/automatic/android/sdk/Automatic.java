@@ -181,9 +181,7 @@ public class Automatic {
     }
 
     public static void logout() {
-        // clear everything
-        sClient = null;
-        mScopes.clear();
+        // remove token
         Internal.get().reset();
         // also update button state (if it's not null)
         if (mLoginButton != null) {

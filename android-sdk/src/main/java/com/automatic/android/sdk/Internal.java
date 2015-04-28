@@ -38,12 +38,10 @@ public class Internal {
         loadDefaultsFromMetadata(context);
     }
 
-    // TODO put in secure storage
     protected void setToken(ResponsesPublic.OAuthResponse token) {
         sharedPrefs.edit().putString(TOKEN_KEY, Utils.gson.toJson(token)).apply();
     }
 
-    // TODO get out of secure storage
     protected static ResponsesPublic.OAuthResponse getToken() {
         return Utils.gson.fromJson(sharedPrefs.getString(TOKEN_KEY, null), ResponsesPublic.OAuthResponse.class);
     }
