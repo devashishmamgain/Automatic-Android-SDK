@@ -2,7 +2,7 @@
 
 ---
 
-**Note: This SDK is in Alpha. Please try it out and send us your feedback!**
+**Note: This SDK is in Alpha. Please file any bugs in the Github Issues tracker**
 
 ---
 
