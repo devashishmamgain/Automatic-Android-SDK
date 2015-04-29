@@ -31,14 +31,7 @@ Register your app on the [Automatic Developer site][developers].
 
 ### 2. Integrating the Automatic Android SDK
 
-1. Add the following lines to your build.gradle:
-	Inside your `repositories {}` block:
-	```gradle
-	maven {
-		url("https://oss.sonatype.org/content/groups/public")
-	}
-	```
-	and inside your `dependencies {}` block:
+1. Add the following line to your build.gradle, within your `dependencies {}` block:
 	```gradle
 	compile 'com.automatic.android:sdk:1.0'
 	```
