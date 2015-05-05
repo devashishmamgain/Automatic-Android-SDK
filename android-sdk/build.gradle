@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 2
-        versionName project.VERSION
+        versionCode 3
+        versionName "1.1"
         testApplicationId "com.automatic.android.sdk.test"
         testInstrumentationRunner "com.automatic.android.sdk.test.TestRunner"
         testFunctionalTest true
@@ -24,7 +24,7 @@ android {
         }
     }
 
-    defaultPublishConfig project.PUBLISH_CONFIG
+    defaultPublishConfig "debug"
 
     testOptions {
         //unitTests.returnDefaultValues = true
@@ -39,7 +39,7 @@ android {
 task copyAAR(type: Copy) {
     from('build/outputs/aar')
     into('../samples/AutomaticSDKSampleApp/android-sdk/')
-    include(project.name + '-' + project.PUBLISH_CONFIG + '.aar')
+    include(project.name + '-' + "debug" + '.aar')
 }
 
 dependencies {
@@ -49,4 +49,4 @@ dependencies {
     compile files('libs/automatic-public-api-interface-all.jar')
 }
 
-apply from: '../maven_push.gradle'
+// apply from: '../maven_push.gradle'

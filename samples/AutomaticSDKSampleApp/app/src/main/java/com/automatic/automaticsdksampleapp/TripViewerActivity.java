@@ -8,9 +8,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.automatic.android.sdk.Automatic;
-import com.automatic.net.ResponsesPublic;
-
-import java.util.List;
+import com.automatic.net.responses.ResultSet;
+import com.automatic.net.responses.Trip;
+import com.automatic.net.responses.User;
+import com.automatic.net.responses.Vehicle;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -34,9 +35,9 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
     }
 
     private void testOtherCalls() {
-        Automatic.restApi().getUser(new Callback<ResponsesPublic.User>() {
+        Automatic.restApi().getUser(new Callback<User>() {
             @Override
-            public void success(ResponsesPublic.User user, Response response) {
+            public void success(User user, Response response) {
                 Log.d("AutomaticRestApi", "getUser() Success!");
             }
 
@@ -46,13 +47,13 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
             }
         });
 
-        Automatic.restApi().getVehicles(new Callback<List<ResponsesPublic.Vehicle>>() {
+        Automatic.restApi().getMyVehicles(new Callback<ResultSet<Vehicle>>() {
             @Override
-            public void success(List<ResponsesPublic.Vehicle> vehicles, Response response) {
+            public void success(ResultSet<Vehicle> vehicles, Response response) {
                 Log.d("AutomaticRestApi", "getVehicles() Success!");
-                Automatic.restApi().getVehicle(vehicles.get(0).id, new Callback<ResponsesPublic.Vehicle>() {
+                Automatic.restApi().getVehicle(vehicles.results.get(0).id, new Callback<Vehicle>() {
                     @Override
-                    public void success(ResponsesPublic.Vehicle vehicle, Response response) {
+                    public void success(Vehicle vehicle, Response response) {
                         Log.d("AutomaticRestApi", "getVehicle() Success!");
                     }
 
@@ -79,25 +80,25 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
     }
 
     private void getTrips() {
-
-        Automatic.restApi().getTrips(new Callback<List<ResponsesPublic.Trip>>() {
+        // TODO need to write some convenience methods
+        Automatic.restApi().getTrips(null,null,null,null,null,null,null,50,new Callback<ResultSet<Trip>>() {
             @Override
-            public void success(List<ResponsesPublic.Trip> trips, Response response) {
-                Log.d(TAG, "Got " + trips.size() + " trips!");
+            public void success(ResultSet<Trip> trips, Response response) {
+                Log.d(TAG, "Got " + trips.results.size() + " trips!");
 
                 // update or replace trips (TODO: add pagination)
                 if (tripAdapter == null) {
                     tripAdapter = new TripAdapter(TripViewerActivity.this, trips);
                     listView.setAdapter(tripAdapter);
                 } else {
-                    tripAdapter.updateTrips(trips);
+                    tripAdapter.updateTrips(trips.results);
                 }
                 swipeRefreshLayout.setRefreshing(false);
 
                 // now try to get the first trip
-                Automatic.restApi().getTrip(trips.get(0).id, new Callback<ResponsesPublic.Trip>() {
+                Automatic.restApi().getTrip(trips.results.get(0).id, new Callback<Trip>() {
                     @Override
-                    public void success(ResponsesPublic.Trip trip, Response response) {
+                    public void success(Trip trip, Response response) {
                         Log.d("AutomaticRestApi", "getTrip() Success!");
                     }
 

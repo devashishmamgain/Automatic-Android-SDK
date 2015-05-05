@@ -20,7 +20,7 @@ import retrofit.RetrofitError;
 
 public class LoginActivity extends ActionBarActivity {
 
-    public static final Scope[] scopes = {Scope.Public, Scope.VehicleVin, Scope.Trips, Scope.Location, Scope.VehicleEvents, Scope.VehicleProfile, Scope.UserProfile};
+    public static final Scope[] scopes = {Scope.Public, Scope.VehicleVin, Scope.Trips, Scope.Location, Scope.VehicleEvents, Scope.VehicleProfile, Scope.UserProfile, Scope.Behavior};
     private LoginButton loginButton;
 
     @Override

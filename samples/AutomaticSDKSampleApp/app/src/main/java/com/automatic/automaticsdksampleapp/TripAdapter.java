@@ -6,7 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import com.automatic.net.ResponsesPublic;
+
+import com.automatic.net.responses.ResultSet;
+import com.automatic.net.responses.Trip;
+
 import java.util.List;
 
 /**
@@ -15,11 +18,11 @@ import java.util.List;
 public class TripAdapter extends BaseAdapter {
 
     Context context;
-    List<ResponsesPublic.Trip> trips;
+    List<Trip> trips;
 
-    public TripAdapter(Context context, List<ResponsesPublic.Trip> trips) {
+    public TripAdapter(Context context, ResultSet<Trip> trips) {
         this.context = context;
-        this.trips = trips;
+        this.trips = trips.results;
     }
 
     @Override
@@ -56,34 +59,25 @@ public class TripAdapter extends BaseAdapter {
 
         // fill data
         TripViewHolder holder = (TripViewHolder) rowView.getTag();
-        ResponsesPublic.Trip trip = trips.get(position);
-        holder.startDate.setText(Utils.getDateString(trip.start_time));
-        holder.endDate.setText(Utils.getDateString(trip.end_time));
-        holder.startName.setText(getShortName(trip.start_location.display_name));
-        holder.endName.setText(getShortName(trip.end_location.display_name));
-        holder.cost.setText("$" + trip.getFuelCostUSD());
+        Trip trip = trips.get(position);
+        holder.startDate.setText(trip.getStartTimeFormatted());
+        holder.endDate.setText(trip.getEndTimeFormatted());
+        holder.startName.setText(trip.getStartAddressDisplayName());
+        holder.endName.setText(trip.getEndAddressDisplayName());
+        holder.cost.setText("$" + trip.fuel_cost_usd);
         return rowView;
     }
 
-    public void updateTrips(List<ResponsesPublic.Trip> trips) {
+    public void updateTrips(List<Trip> trips) {
         this.trips = trips;
         notifyDataSetChanged();
     }
 
     // do some array shuffling and add the new page
-    public void addPage(List<ResponsesPublic.Trip> newPage) {
+    public void addPage(List<Trip> newPage) {
         trips.addAll(newPage);
         notifyDataSetChanged();
     }
-
-    private String getShortName(String longName) {
-        String shortName = "Unknown";
-        if (longName != null && !longName.isEmpty()) {
-            shortName = longName.split(",")[0];
-        }
-        return shortName;
-    }
-
 
     private class TripViewHolder {
         TextView startName;

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.automatic.net.AutomaticClientPublic;
+import com.automatic.net.AutomaticRestApi;
 import com.automatic.net.OAuthHandler;
 import com.automatic.net.ResponsesPublic;
 
@@ -172,8 +173,8 @@ public class Automatic {
         }
     }
 
-    public static AutomaticClientPublic restApi() {
-        return sClient;
+    public static AutomaticRestApi restApi() {
+        return AutomaticClientPublic.restApi();
     }
 
     public static boolean isLoggedIn() {
