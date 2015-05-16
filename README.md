@@ -6,9 +6,9 @@
 
 ---
 
-The Automatic SDK is the best way to build Android apps powered by [Automatic](automatic.com).
+The Automatic SDK is the best way to build Android apps powered by [Automatic](http://automatic.com).
 
-With the Automatic Android SDK, your users can log in to your app with their [Automatic](automatic.com) accounts. Think _Facebook_ or _Twitter_ login—but rather than bringing a users' social graph, instead unlocking a wealth of automotive data that you can use to supercharge your app.
+With the Automatic Android SDK, your users can log in to your app with their [Automatic](http://automatic.com) accounts. Think _Facebook_ or _Twitter_ login—but rather than bringing a users' social graph, instead unlocking a wealth of automotive data that you can use to supercharge your app.
 
 <img src='https://github.com/automatic/automatic-android-sdk/blob/master/README/login_button_example.png?raw=true' alt='Log in with Automatic' height='102' width='337'/>
 > Pictured: your app's new login screen
