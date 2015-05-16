@@ -36,7 +36,7 @@ Register your app on the [Automatic Developer site][developers].
 	compile 'com.automatic.android:sdk:1.0'
 	```
 
-2. Add your client id to your AndroidManifest.xml, inside your `<application>` tag:
+2. Add your client id to your AndroidManifest.xml, inside your `<application>` tag.  Your client id can be found within the Automatic [Developer Apps Manager][https://developer.automatic.com/dashboard]:
 	```xml
 	<meta-data android:name="com.automatic.sdk.client_id" android:value="your_client_id" />	
 	```
