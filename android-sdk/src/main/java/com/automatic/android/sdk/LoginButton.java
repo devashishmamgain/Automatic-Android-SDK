@@ -1,4 +1,4 @@
-package com.automatic;
+package com.automatic.android.sdk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,9 +10,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.Button;
-
-import com.automatic.android.sdk.AutomaticLoginCallbacks;
-import com.automatic.android.sdk.R;
 
 import retrofit.RetrofitError;
 

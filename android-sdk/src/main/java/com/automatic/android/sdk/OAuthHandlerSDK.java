@@ -1,4 +1,4 @@
-package com.automatic;
+package com.automatic.android.sdk;
 
 import android.util.Log;
 
@@ -29,10 +29,14 @@ public class OAuthHandlerSDK implements OAuthHandler {
 
     @Override
     public boolean refreshToken() {
-        ResponsesPublic.OAuthResponse newToken = Automatic.sClient.refreshTokenSync(Internal.getToken().refresh_token);
-        if (newToken != null) {
-            Internal.get().setToken(newToken);
-            return true;
+        ResponsesPublic.OAuthResponse oauth = getToken();
+        if (oauth != null) {
+            ResponsesPublic.OAuthResponse newToken = Automatic.get().refreshToken(oauth.refresh_token);
+            if (newToken != null) {
+                Internal.get().setToken(newToken);
+                return true;
+            }
+
         }
         return false;
     }

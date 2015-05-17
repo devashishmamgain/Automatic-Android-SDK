@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import com.automatic.Automatic;
-
 /**
  * Created by duncancarroll on 2/12/15.
  * Copyright (c) 2015 Automatic Labs. All rights reserved.

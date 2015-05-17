@@ -1,4 +1,4 @@
-package com.automatic;
+package com.automatic.android.sdk;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -8,14 +8,15 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import com.automatic.android.sdk.AutomaticLoginCallbacks;
-import com.automatic.android.sdk.Scope;
 import com.automatic.net.AutomaticClientPublic;
 import com.automatic.net.LogInterface;
+import com.automatic.net.NetworkHandler;
+import com.automatic.net.ResponsesPublic;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
@@ -36,6 +37,7 @@ public class Automatic {
     protected static LoginButton mLoginButton;
     protected static AutomaticLoginCallbacks mLoginCallbacks;
     protected static OAuthHandlerSDK mOAuthHandler = new OAuthHandlerSDK();
+    protected static NetworkHandler mNetworkHandler;
     protected static List<Scope> mScopes = new ArrayList<>();
     private static LogInterface logInterface = new LogInterface() {
         @Override
@@ -57,7 +59,24 @@ public class Automatic {
     public static void initialize(Builder builder) {
         builder.build();
         sClient = new AutomaticClientPublic(mOAuthHandler, builder.logLevel, logInterface);
+        mNetworkHandler = new NetworkHandler(sClient);
     }
+
+    // used to keep access protected
+    public void getTokenApi(String code, Callback<ResponsesPublic.OAuthResponse> callback) {
+        if (mNetworkHandler != null) {
+            mNetworkHandler.getTokenApi(code, callback);
+        }
+    }
+
+    public ResponsesPublic.OAuthResponse refreshToken(String refreshToken) {
+        if (mNetworkHandler != null) {
+            return mNetworkHandler.refreshToken(refreshToken);
+        }
+        return null;
+    }
+
+    // used to keep access protected
 
     /**
      * Builder class to create an SDK instance.

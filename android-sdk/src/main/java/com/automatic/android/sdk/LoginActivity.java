@@ -1,4 +1,4 @@
-package com.automatic;
+package com.automatic.android.sdk;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,7 +12,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.automatic.android.sdk.R;
 import com.automatic.android.sdk.exceptions.AutomaticSdkException;
 import com.automatic.net.ResponsesPublic;
 
@@ -124,7 +123,7 @@ public class LoginActivity extends Activity {
 
     private void getToken(String mCode) {
 
-        Automatic.sClient.getTokenApi(mCode, new Callback<ResponsesPublic.OAuthResponse>() {
+        Automatic.get().getTokenApi(mCode, new Callback<ResponsesPublic.OAuthResponse>() {
             @Override
             public void success(ResponsesPublic.OAuthResponse oAuthResponse, Response response) {
 

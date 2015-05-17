@@ -1,4 +1,4 @@
-package com.automatic;
+package com.automatic.android.sdk;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Base64;
 
-import com.automatic.android.sdk.Utils;
 import com.automatic.net.ResponsesPublic;
 
 import java.security.MessageDigest;
