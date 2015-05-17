@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.automatic.net.AutomaticClientPublic;
 import com.automatic.net.AutomaticRestApi;
+import com.automatic.net.LogInterface;
 import com.automatic.net.OAuthHandler;
 import com.automatic.net.ResponsesPublic;
 
@@ -29,12 +30,24 @@ public class Automatic {
 
     public static final int REQUEST_CODE = 0x5afe;
 
+    //public static String SET_BAD_TOKEN = null;
     protected static Automatic sAutomatic;
     private Context context;
     protected static AutomaticClientPublic sClient;
     protected static LoginButton mLoginButton;
     protected static AutomaticLoginCallbacks mLoginCallbacks;
     protected static List<Scope> mScopes = new ArrayList<>();
+    private static LogInterface logInterface = new LogInterface() {
+        @Override
+        public void logDebug(String s) {
+            Log.d("AutomaticSDK", s);
+        }
+
+        @Override
+        public void logException(String s) {
+            Log.e("AutomaticSDK",s);
+        }
+    };
 
     /**
      * Entry point to the SDK.  Pass in a Builder object and the client will be created.
@@ -43,7 +56,7 @@ public class Automatic {
      */
     public static void initialize(Builder builder) {
         builder.build();
-        sClient = new AutomaticClientPublic(oAuthHandler, builder.logLevel);
+        sClient = new AutomaticClientPublic(oAuthHandler, builder.logLevel, logInterface);
     }
 
     /**
@@ -222,7 +235,6 @@ public class Automatic {
 //        }
 //    }
 
-
     /**
      * OAuth refresh handlers
      */
@@ -230,7 +242,14 @@ public class Automatic {
 
         @Override
         public ResponsesPublic.OAuthResponse getToken() {
-            return Internal.get().getToken();
+//            if (SET_BAD_TOKEN != null) {
+//                ResponsesPublic.OAuthResponse token = Internal.getToken();
+//                token.access_token = SET_BAD_TOKEN;
+//                token.expires_in = 0;
+//                SET_BAD_TOKEN = null; // reset flag
+//                return token;
+//            }
+            return Internal.getToken();
         }
 
         @Override
@@ -240,7 +259,7 @@ public class Automatic {
 
         @Override
         public boolean refreshToken() {
-            ResponsesPublic.OAuthResponse newToken = sClient.refreshTokenSync(Internal.get().getToken().refresh_token);
+            ResponsesPublic.OAuthResponse newToken = sClient.refreshTokenSync(Internal.getToken().refresh_token);
             if (newToken != null) {
                 Internal.get().setToken(newToken);
                 return true;
@@ -255,7 +274,8 @@ public class Automatic {
 
         @Override
         public void onRefreshFailed() {
-            // TODO handle oAuth token refresh failure
+            Log.e("Automatic SDK", "Fatal error: Couldn't refresh token!  Logging out the user rather than failing all subsequent network requests");
+            Automatic.logout();
         }
     };
 

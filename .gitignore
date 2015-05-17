@@ -6,3 +6,5 @@ gradle.properties
 .idea/*
 .idea/
 *.iml
+android-sdk/libs/*
+samples/AutomaticSDKSampleApp/android-sdk/*
