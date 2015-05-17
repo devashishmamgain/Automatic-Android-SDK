@@ -1,4 +1,4 @@
-package com.automatic.android.sdk;
+package com.automatic;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.automatic.android.sdk.R;
 import com.automatic.android.sdk.exceptions.AutomaticSdkException;
 import com.automatic.net.ResponsesPublic;
 

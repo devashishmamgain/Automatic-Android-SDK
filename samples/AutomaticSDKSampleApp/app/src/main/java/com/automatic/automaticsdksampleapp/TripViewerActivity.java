@@ -24,6 +24,7 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
     ListView listView;
     TripAdapter tripAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
+    User mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,7 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
         listView = (ListView) findViewById(R.id.trip_list);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-        getTrips();
+
         testOtherCalls();
     }
 
@@ -40,12 +41,15 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
         Automatic.restApi().getUser(new Callback<User>() {
             @Override
             public void success(User user, Response response) {
+                mUser = user;
+                getTrips();
                 Log.d("AutomaticRestApi", "getUser() Success!");
             }
 
             @Override
             public void failure(RetrofitError retrofitError) {
                 Log.e("AutomaticRestApi", "getUser() Failed!");
+                Toast.makeText(TripViewerActivity.this, "Couldn't get user!  Not getting trips.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -105,13 +109,11 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
     }
 
     private void getTrips() {
-        // TODO need to write some convenience methods
-        Automatic.restApi().getTrips(null,null,null,null,null,null,null,50,new Callback<ResultSet<Trip>>() {
+        Automatic.restApi().getTripsForUser(mUser.id, 1, 100, new Callback<ResultSet<Trip>>() {
             @Override
             public void success(ResultSet<Trip> trips, Response response) {
                 Log.d(TAG, "Got " + trips.results.size() + " trips!");
 
-                // update or replace trips (TODO: add pagination)
                 if (tripAdapter == null) {
                     tripAdapter = new TripAdapter(TripViewerActivity.this, trips);
                     listView.setAdapter(tripAdapter);
@@ -120,7 +122,7 @@ public class TripViewerActivity extends ActionBarActivity implements SwipeRefres
                 }
                 swipeRefreshLayout.setRefreshing(false);
 
-                // now try to get the first trip
+                // also try to get the first trip
                 Automatic.restApi().getTrip(trips.results.get(0).id, new Callback<Trip>() {
                     @Override
                     public void success(Trip trip, Response response) {

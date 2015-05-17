@@ -1,4 +1,4 @@
-package com.automatic.android.sdk;
+package com.automatic;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -8,11 +8,10 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import com.automatic.android.sdk.AutomaticLoginCallbacks;
+import com.automatic.android.sdk.Scope;
 import com.automatic.net.AutomaticClientPublic;
-import com.automatic.net.AutomaticRestApi;
 import com.automatic.net.LogInterface;
-import com.automatic.net.OAuthHandler;
-import com.automatic.net.ResponsesPublic;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +35,7 @@ public class Automatic {
     protected static AutomaticClientPublic sClient;
     protected static LoginButton mLoginButton;
     protected static AutomaticLoginCallbacks mLoginCallbacks;
+    protected static OAuthHandlerSDK mOAuthHandler = new OAuthHandlerSDK();
     protected static List<Scope> mScopes = new ArrayList<>();
     private static LogInterface logInterface = new LogInterface() {
         @Override
@@ -56,7 +56,7 @@ public class Automatic {
      */
     public static void initialize(Builder builder) {
         builder.build();
-        sClient = new AutomaticClientPublic(oAuthHandler, builder.logLevel, logInterface);
+        sClient = new AutomaticClientPublic(mOAuthHandler, builder.logLevel, logInterface);
     }
 
     /**
@@ -186,8 +186,8 @@ public class Automatic {
         }
     }
 
-    public static AutomaticRestApi restApi() {
-        return AutomaticClientPublic.restApi();
+    public static AutomaticClientPublic restApi() {
+        return sClient;
     }
 
     public static boolean isLoggedIn() {
@@ -234,49 +234,5 @@ public class Automatic {
 //            throw new AutomaticSdkException("Please add android.permission.INTERNET to your app manifest");
 //        }
 //    }
-
-    /**
-     * OAuth refresh handlers
-     */
-    private static OAuthHandler oAuthHandler = new OAuthHandler() {
-
-        @Override
-        public ResponsesPublic.OAuthResponse getToken() {
-//            if (SET_BAD_TOKEN != null) {
-//                ResponsesPublic.OAuthResponse token = Internal.getToken();
-//                token.access_token = SET_BAD_TOKEN;
-//                token.expires_in = 0;
-//                SET_BAD_TOKEN = null; // reset flag
-//                return token;
-//            }
-            return Internal.getToken();
-        }
-
-        @Override
-        public void setToken(ResponsesPublic.OAuthResponse token) {
-            Internal.get().setToken(token);
-        }
-
-        @Override
-        public boolean refreshToken() {
-            ResponsesPublic.OAuthResponse newToken = sClient.refreshTokenSync(Internal.getToken().refresh_token);
-            if (newToken != null) {
-                Internal.get().setToken(newToken);
-                return true;
-            }
-            return false;
-        }
-
-        @Override
-        public String getClientId() {
-            return Internal.get().getClientId();
-        }
-
-        @Override
-        public void onRefreshFailed() {
-            Log.e("Automatic SDK", "Fatal error: Couldn't refresh token!  Logging out the user rather than failing all subsequent network requests");
-            Automatic.logout();
-        }
-    };
 
 }
