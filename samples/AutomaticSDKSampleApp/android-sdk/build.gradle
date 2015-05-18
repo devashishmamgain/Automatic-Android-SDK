@@ -1,2 +1,1 @@
 configurations.create("default")
-artifacts.add("default", file('android-sdk-debug.aar'))

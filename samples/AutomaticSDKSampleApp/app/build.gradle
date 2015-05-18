@@ -37,8 +37,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
 
     // comment out the line below to remove project dependency.
-    compile(project(':android-sdk'))
+    //compile(project(':android-sdk'))
 
     // uncomment the line below to pull artifact from maven
-    //compile 'com.automatic:android-sdk:0.1'
+    compile ('com.automatic:android-sdk:0.2.1') {
+        transitive = true
+    }
 }
