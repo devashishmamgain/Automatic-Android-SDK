@@ -31,9 +31,11 @@ Register your app on the [Automatic Developer site][developers].
 
 ### 2. Integrating the Automatic Android SDK
 
-1. Add the following line to your build.gradle, within your `dependencies {}` block:
+1. Add the following line to your build.gradle, within your `dependencies {}` block, including transitive dependencies:
 	```gradle
-	compile 'com.automatic:android-sdk:0.2'
+	compile ('com.automatic:android-sdk:0.2') {
+		transitive = true
+	}
 	```
 
 2. Add your client id to your AndroidManifest.xml, inside your `<application>` tag.  Your client id can be found within the Automatic [Developer Apps Manager](https://developer.automatic.com/dashboard):
@@ -64,12 +66,12 @@ Register your app on the [Automatic Developer site][developers].
     android:layout_height="wrap_content" />
 	``` 
 
-2. Initialize the SDK either within an Activity context, and pass it your desired Scope as well as a reference to your button:
+2. Initialize the SDK either within an Activity context, and pass it an array of your Scopes as well as a reference to your button, and log level.  :
 	```java
 	Automatic.initialize(
         new Automatic.Builder(this)
             .addScopes(scopes)
-            .logLevel(RestAdapter.LogLevel.FULL)
+            .logLevel(LogLevel.FULL)
             .useLoginButton(mLoginButton, this));
 	```
 
@@ -122,7 +124,7 @@ Register your app on the [Automatic Developer site][developers].
 
 	**For more details, see the [Developer Documentation][api-docs] and the [SDK Sample App][sample-app]**
 
-5. Coming soon: Bind to the Automatic Service class and receive instantaneous push events coming from the car, e.g.:
+5. Coming Very, Very Soon: Bind to the Automatic Service class and receive instantaneous push events coming from the car, e.g.:
 	- Ignition On / Off
 	- MIL status
 	- Trip complete
