@@ -108,9 +108,9 @@ Register your app on the [Automatic Developer site][developers].
 
 4. Once the user has authenticated, use `Automatic.restApi()` to make calls against the REST API, for example:
 	```java
-	Automatic.restApi().getTrips(new Callback<List<ResponsesPublic.Trip>>() {
+	Automatic.restApi().getTrips(new Callback<ResultSet<Trip>>() {
         @Override
-        public void success(List<ResponsesPublic.Trip> trips, Response response) {
+        public void success(ResultSet<Trip> trips, Response response) {
             // you got some trips!
         }
 
