@@ -66,7 +66,7 @@ Register your app on the [Automatic Developer site][developers].
     android:layout_height="wrap_content" />
 	``` 
 
-2. Initialize the SDK either within an Activity context, and pass it an array of your Scopes as well as a reference to your button, and log level.  :
+2. Initialize the SDK either within an Activity context, and pass it an array of your Scopes as well as a reference to your button, and log level.  Note: Be sure to only include scopes that you have access to, or you will receive an "Invalid Request" upon authorizing:
 	```java
 	Automatic.initialize(
         new Automatic.Builder(this)
