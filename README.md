@@ -33,7 +33,7 @@ Register your app on the [Automatic Developer site][developers].
 
 1. Add the following line to your build.gradle, within your `dependencies {}` block, including transitive dependencies:
 	```gradle
-	compile ('com.automatic:android-sdk:0.2') {
+	compile ('com.automatic:android-sdk:0.2.1') {
 		transitive = true
 	}
 	```
