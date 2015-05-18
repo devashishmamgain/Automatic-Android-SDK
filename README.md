@@ -2,7 +2,7 @@
 
 ---
 
-**Note: This SDK is in Alpha. Please file any bugs in the [Github Issues](https://github.com/Automatic/automatic-android-sdk/issues) tracker**
+**Note: Please file any bugs in the [Github Issues](https://github.com/Automatic/automatic-android-sdk/issues) tracker**
 
 ---
 
