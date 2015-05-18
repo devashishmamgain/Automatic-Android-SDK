@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 3
-        versionName "1.1"
+        versionCode 6
+        versionName "0.2.1"
         testApplicationId "com.automatic.android.sdk.test"
         testInstrumentationRunner "com.automatic.android.sdk.test.TestRunner"
         testFunctionalTest true
@@ -49,4 +49,5 @@ dependencies {
     compile files('libs/automatic-public-api-interface-all.jar')
 }
 
-// apply from: '../maven_push.gradle'
+// uncomment when deploying
+//apply from: '../maven_push.gradle'

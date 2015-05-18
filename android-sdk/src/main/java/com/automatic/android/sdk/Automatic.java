@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -84,7 +83,7 @@ public class Automatic {
     public static class Builder {
 
         private String clientSecret;
-        public RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.NONE;
+        private RestAdapter.LogLevel logLevel = RestAdapter.LogLevel.NONE;
 
         public Builder(Context context) {
             sAutomatic = new Automatic();
@@ -147,8 +146,18 @@ public class Automatic {
          * @param level Retrofit log level
          * @return Builder instance
          */
-        public Builder logLevel(RestAdapter.LogLevel level) {
-            logLevel = level;
+        public Builder logLevel(LogLevel level) {
+            switch (level) {
+                case None:
+                    logLevel = RestAdapter.LogLevel.NONE;
+                    break;
+                case Basic:
+                    logLevel = RestAdapter.LogLevel.BASIC;
+                    break;
+                case Full:
+                    logLevel = RestAdapter.LogLevel.FULL;
+                    break;
+            }
             return this;
         }
 
@@ -161,11 +170,11 @@ public class Automatic {
          *
          * @return Builder instance
          */
-        public Builder useServiceBinding(Handler serviceMessageHandler) {
-            // do a bunch of stuff to initialize our service binding, and keep
-            // an instance of our Handler.
-            return this;
-        }
+//        public Builder useServiceBinding(Handler serviceMessageHandler) {
+//            // do a bunch of stuff to initialize our service binding, and keep
+//            // an instance of our Handler.
+//            return this;
+//        }
 
         private void build() {
             // initialize the Internal context
@@ -235,7 +244,7 @@ public class Automatic {
         this.mLoginCallbacks = callbacks;
     }
 
-    public static void invokeCallback(Boolean success, RetrofitError error) {
+    private static void invokeCallback(Boolean success, RetrofitError error) {
         if (success) {
             mLoginCallbacks.onLoginSuccess();
         }else {
